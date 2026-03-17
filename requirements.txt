@@ -1,0 +1,5 @@
+azure_storage==0.37.0
+fastapi==0.135.1
+openai==2.29.0
+python-dotenv==1.2.2
+uvicorn==0.42.0
