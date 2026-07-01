@@ -25,7 +25,7 @@ app = FastAPI()
 class Chatrequest(BaseModel):
     message: str
     ##history: list[dict] = []
-    game_state: dict = {}
+    game_state_snapshot: dict = {}
 
 class Chatresponse(BaseModel):
     reply: str
@@ -52,7 +52,7 @@ async def chatmessage(body: Chatrequest):
         {
             "role": "system",
             "content": f"""Current game state:
-            {json.dumps(body.game_state,indent=2)}
+            {json.dumps(body.game_state_snapshot,indent=2)}
             Counter interpretation guide:
             - InputCounter: measures bottles entering the production line 
             - MachineOutCounter: measures bottles leaving the machine
@@ -73,6 +73,8 @@ async def chatmessage(body: Chatrequest):
     temperature=0.4,)
     reply = resp.choices[0].message.content or ""
     print(reply)
+    print(body.game_state_snapshot)
+
     return {"reply": reply}
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8888)
