@@ -58,7 +58,10 @@ async def chatmessage(body: Chatrequest):
             - MachineOutCounter: measures bottles leaving the machine
             - EndLineCounter: measures bottles completing the full line
             - A drop in bottleCounterThroughput between counters indicates loss or blocking at that stage
-            - funnelCount and hopperLevel indicate current material buffer levels
+            - funnelCount indicates the current material buffer level for that line
+            - currOrders lists materials the player has ordered from the forklift that have NOT yet been delivered — this is supply in transit, not customer demand
+            - shipmentCount is how many shipments remain to be delivered for that order; time is when the order becomes eligible to ship (game-clock seconds, not a real timestamp)
+            - Never reference JSON field names directly (e.g. don't say "funnelCount" or "currOrders") — describe what they represent in plain manufacturing terms instead
             Use this information to answer the player's question and reference actual numbers."""
         },
         {
